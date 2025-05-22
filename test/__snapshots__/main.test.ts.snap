@@ -1,0 +1,1414 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FargateLogCollectorService Should create a Fargate service with the correct properties and match template 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "ContainerLogGroupDE306E09": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "LogGroupName": "container-log-group",
+        "RetentionInDays": 7,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "FargateLogCollectorService9F8976FE": {
+      "DependsOn": [
+        "LogCollectorTaskRoleDefaultPolicy6698E53E",
+        "LogCollectorTaskRole7F5C3342",
+      ],
+      "Properties": {
+        "Cluster": {
+          "Ref": "MyCluster4C1BA579",
+        },
+        "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
+          "DeploymentCircuitBreaker": {
+            "Enable": true,
+            "Rollback": true,
+          },
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 0,
+        },
+        "DeploymentController": {
+          "Type": "ECS",
+        },
+        "DesiredCount": 1,
+        "EnableECSManagedTags": false,
+        "LaunchType": "FARGATE",
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "AssignPublicIp": "DISABLED",
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
+                  "FargateLogCollectorServiceSecurityGroup6F4ED0C2",
+                  "GroupId",
+                ],
+              },
+            ],
+            "Subnets": [
+              {
+                "Ref": "MyVpcPrivateSubnet1Subnet5057CF7E",
+              },
+              {
+                "Ref": "MyVpcPrivateSubnet2Subnet0040C983",
+              },
+              {
+                "Ref": "MyVpcPrivateSubnet3Subnet772D6AD7",
+              },
+            ],
+          },
+        },
+        "ServiceName": "log-collector",
+        "TaskDefinition": {
+          "Ref": "LogCollectorTaskDefinition401DD488",
+        },
+      },
+      "Type": "AWS::ECS::Service",
+    },
+    "FargateLogCollectorServiceCloudWatchAgentPolicy673971AA": {
+      "DependsOn": [
+        "LogCollectorTaskRoleDefaultPolicy6698E53E",
+        "LogCollectorTaskRole7F5C3342",
+      ],
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "FargateLogCollectorServicemyloggroup7467CEAC",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FargateLogCollectorServicemyloggroup7467CEAC",
+                          "Arn",
+                        ],
+                      },
+                      ":*:*",
+                    ],
+                  ],
+                },
+                {
+                  "Fn::GetAtt": [
+                    "NewLogGroupD128C696",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "NewLogGroupD128C696",
+                          "Arn",
+                        ],
+                      },
+                      ":*:*",
+                    ],
+                  ],
+                },
+                {
+                  "Fn::GetAtt": [
+                    "FargateLogCollectorServicemyfourthlogfilelogF0DD5A33",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FargateLogCollectorServicemyfourthlogfilelogF0DD5A33",
+                          "Arn",
+                        ],
+                      },
+                      ":*:*",
+                    ],
+                  ],
+                },
+                {
+                  "Fn::GetAtt": [
+                    "FargateLogCollectorServicemyfifthlogfilelogB56F4DE2",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "FargateLogCollectorServicemyfifthlogfilelogB56F4DE2",
+                          "Arn",
+                        ],
+                      },
+                      ":*:*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "FargateLogCollectorServiceCloudWatchAgentPolicy673971AA",
+        "Roles": [
+          {
+            "Ref": "LogCollectorTaskRole7F5C3342",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "FargateLogCollectorServiceRestartServiceFunction2DD84C60": {
+      "DependsOn": [
+        "FargateLogCollectorServiceRestartServiceFunctionRoleB30AEA6D",
+        "LogCollectorTaskRoleDefaultPolicy6698E53E",
+        "LogCollectorTaskRole7F5C3342",
+      ],
+      "Properties": {
+        "Code": {
+          "ZipFile": {
+            "Fn::Join": [
+              "",
+              [
+                "
+import boto3
+def handler(event, context):
+    ecs = boto3.client('ecs')
+    response = ecs.update_service(
+        cluster='",
+                {
+                  "Ref": "MyCluster4C1BA579",
+                },
+                "',
+        service='",
+                {
+                  "Fn::GetAtt": [
+                    "FargateLogCollectorService9F8976FE",
+                    "Name",
+                  ],
+                },
+                "',
+        forceNewDeployment=True
+    )
+    return {'status': 200}
+    ",
+              ],
+            ],
+          },
+        },
+        "Handler": "index.handler",
+        "LoggingConfig": {
+          "LogGroup": {
+            "Ref": "LambdaLogGroup2CA1C11F",
+          },
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "FargateLogCollectorServiceRestartServiceFunctionRoleB30AEA6D",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.13",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "FargateLogCollectorServiceRestartServiceFunctionRoleB30AEA6D": {
+      "DependsOn": [
+        "LogCollectorTaskRoleDefaultPolicy6698E53E",
+        "LogCollectorTaskRole7F5C3342",
+      ],
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "ecs:UpdateService",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Ref": "FargateLogCollectorService9F8976FE",
+                  },
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "RestartServicePolicy",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "FargateLogCollectorServiceRestartServiceRuleAA1C0810": {
+      "DependsOn": [
+        "LogCollectorTaskRoleDefaultPolicy6698E53E",
+        "LogCollectorTaskRole7F5C3342",
+      ],
+      "Properties": {
+        "ScheduleExpression": "cron(0 0 * * ? *)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "FargateLogCollectorServiceRestartServiceFunction2DD84C60",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "FargateLogCollectorServiceRestartServiceRuleAllowEventRuleMyStackFargateLogCollectorServiceRestartServiceFunction752B2A9A65C5FD5E": {
+      "DependsOn": [
+        "LogCollectorTaskRoleDefaultPolicy6698E53E",
+        "LogCollectorTaskRole7F5C3342",
+      ],
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "FargateLogCollectorServiceRestartServiceFunction2DD84C60",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "FargateLogCollectorServiceRestartServiceRuleAA1C0810",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "FargateLogCollectorServiceSecurityGroup6F4ED0C2": {
+      "DependsOn": [
+        "LogCollectorTaskRoleDefaultPolicy6698E53E",
+        "LogCollectorTaskRole7F5C3342",
+      ],
+      "Properties": {
+        "GroupDescription": "MyStack/FargateLogCollectorService/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "FargateLogCollectorServicemyfifthlogfilelogB56F4DE2": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "LogCollectorTaskRoleDefaultPolicy6698E53E",
+        "LogCollectorTaskRole7F5C3342",
+      ],
+      "Properties": {
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "FargateLogCollectorServicemyfourthlogfilelogF0DD5A33": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "LogCollectorTaskRoleDefaultPolicy6698E53E",
+        "LogCollectorTaskRole7F5C3342",
+      ],
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "FargateLogCollectorServicemyloggroup7467CEAC": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "LogCollectorTaskRoleDefaultPolicy6698E53E",
+        "LogCollectorTaskRole7F5C3342",
+      ],
+      "Properties": {
+        "LogGroupName": "my-log-group",
+        "RetentionInDays": 7,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "LambdaLogGroup2CA1C11F": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "LogGroupName": "lambda-log-group",
+        "RetentionInDays": 365,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "LogCollectorExecutionRole96F642C6": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogCollectorExecutionRoleDefaultPolicyDC91D0B6": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "ContainerLogGroupDE306E09",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogCollectorExecutionRoleDefaultPolicyDC91D0B6",
+        "Roles": [
+          {
+            "Ref": "LogCollectorExecutionRole96F642C6",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogCollectorTaskDefinition401DD488": {
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Environment": [
+              {
+                "Name": "CW_CONFIG_CONTENT",
+                "Value": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "{"logs":{"logs_collected":{"files":{"collect_list":[{"file_path":"/mnt/logs/my-first-log-file.log","log_group_name":"my-log-group","log_stream_name":"{date}","multi_line_start_pattern":"start-anchor"},{"file_path":"/mnt/logs/my-second-log-file.log","log_group_name":"",
+                      {
+                        "Ref": "NewLogGroupD128C696",
+                      },
+                      "","log_stream_name":"{date}","timestamp_format":"%Y-%m-%d %H:%M:%S","timezone":"UTC"},{"file_path":"/mnt/logs/my-third-log-file.log","log_group_name":"my-log-group","log_stream_name":"{date}","filters":[{"type":"exclude","expression":"SECRET"}]},{"file_path":"/mnt/logs/my-fourth-log-file.log","log_group_name":"my-fourth-log-file.log","log_stream_name":"{date}"},{"file_path":"/mnt/logs/my-fifth-log-file.log","log_group_name":"my-fifth-log-file.log","log_stream_name":"{date}"}]}}}}",
+                    ],
+                  ],
+                },
+              },
+            ],
+            "Essential": true,
+            "Image": "amazon/cloudwatch-agent:latest",
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "ContainerLogGroupDE306E09",
+                },
+                "awslogs-region": "us-east-1",
+                "awslogs-stream-prefix": "container",
+                "mode": "non-blocking",
+              },
+            },
+            "MountPoints": [
+              {
+                "ContainerPath": "/mnt/logs",
+                "ReadOnly": true,
+                "SourceVolume": "logs",
+              },
+              {
+                "ContainerPath": "/opt/aws/amazon-cloudwatch-agent/logs/state",
+                "ReadOnly": false,
+                "SourceVolume": "agent-state",
+              },
+            ],
+            "Name": "cloudwatch-agent",
+          },
+        ],
+        "Cpu": "256",
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "LogCollectorExecutionRole96F642C6",
+            "Arn",
+          ],
+        },
+        "Family": "MyStackLogCollectorTaskDefinition3EBDEDD4",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": [
+          "FARGATE",
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "LogCollectorTaskRole7F5C3342",
+            "Arn",
+          ],
+        },
+        "Volumes": [
+          {
+            "EFSVolumeConfiguration": {
+              "AuthorizationConfig": {
+                "AccessPointId": {
+                  "Ref": "MyEfsFileSystemlogs788E9911",
+                },
+                "IAM": "ENABLED",
+              },
+              "FilesystemId": {
+                "Ref": "MyEfsFileSystem570A3D32",
+              },
+              "TransitEncryption": "ENABLED",
+            },
+            "Name": "logs",
+          },
+          {
+            "EFSVolumeConfiguration": {
+              "AuthorizationConfig": {
+                "AccessPointId": {
+                  "Ref": "MyEfsFileSystemstate9620F747",
+                },
+                "IAM": "ENABLED",
+              },
+              "FilesystemId": {
+                "Ref": "MyEfsFileSystem570A3D32",
+              },
+              "TransitEncryption": "ENABLED",
+            },
+            "Name": "agent-state",
+          },
+        ],
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "LogCollectorTaskRole7F5C3342": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogCollectorTaskRoleDefaultPolicy6698E53E": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "elasticfilesystem:ClientMount",
+                "elasticfilesystem:ClientRead",
+                "elasticfilesystem:ClientWrite",
+                "elasticfilesystem:DescribeMountTargets",
+                "elasticfilesystem:ClientRootAccess",
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "elasticfilesystem:AccessPointArn": [
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:",
+                          {
+                            "Ref": "AWS::Partition",
+                          },
+                          ":elasticfilesystem:us-east-1:134322753743:access-point/",
+                          {
+                            "Ref": "MyEfsFileSystemstate9620F747",
+                          },
+                        ],
+                      ],
+                    },
+                  ],
+                },
+              },
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "MyEfsFileSystem570A3D32",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": [
+                "elasticfilesystem:ClientMount",
+                "elasticfilesystem:ClientRead",
+                "elasticfilesystem:DescribeMountTargets",
+                "elasticfilesystem:ClientRootAccess",
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "elasticfilesystem:AccessPointArn": [
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:",
+                          {
+                            "Ref": "AWS::Partition",
+                          },
+                          ":elasticfilesystem:us-east-1:134322753743:access-point/",
+                          {
+                            "Ref": "MyEfsFileSystemlogs788E9911",
+                          },
+                        ],
+                      ],
+                    },
+                  ],
+                },
+              },
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "MyEfsFileSystem570A3D32",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogCollectorTaskRoleDefaultPolicy6698E53E",
+        "Roles": [
+          {
+            "Ref": "LogCollectorTaskRole7F5C3342",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "MyCluster4C1BA579": {
+      "Properties": {
+        "ClusterSettings": [
+          {
+            "Name": "containerInsights",
+            "Value": "enabled",
+          },
+        ],
+      },
+      "Type": "AWS::ECS::Cluster",
+    },
+    "MyCluster7581BFB3": {
+      "Properties": {
+        "CapacityProviders": [
+          "FARGATE",
+          "FARGATE_SPOT",
+        ],
+        "Cluster": {
+          "Ref": "MyCluster4C1BA579",
+        },
+        "DefaultCapacityProviderStrategy": [],
+      },
+      "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
+    },
+    "MyEfsFileSystem570A3D32": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Encrypted": true,
+        "FileSystemTags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyEfsFileSystem",
+          },
+        ],
+        "LifecyclePolicies": [
+          {
+            "TransitionToIA": "AFTER_7_DAYS",
+          },
+        ],
+      },
+      "Type": "AWS::EFS::FileSystem",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "MyEfsFileSystemEfsMountTarget113745499": {
+      "Properties": {
+        "FileSystemId": {
+          "Ref": "MyEfsFileSystem570A3D32",
+        },
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "MyEfsFileSystemEfsSecurityGroupAF3B3237",
+              "GroupId",
+            ],
+          },
+        ],
+        "SubnetId": {
+          "Ref": "MyVpcPrivateSubnet1Subnet5057CF7E",
+        },
+      },
+      "Type": "AWS::EFS::MountTarget",
+    },
+    "MyEfsFileSystemEfsMountTarget2E02D6819": {
+      "Properties": {
+        "FileSystemId": {
+          "Ref": "MyEfsFileSystem570A3D32",
+        },
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "MyEfsFileSystemEfsSecurityGroupAF3B3237",
+              "GroupId",
+            ],
+          },
+        ],
+        "SubnetId": {
+          "Ref": "MyVpcPrivateSubnet2Subnet0040C983",
+        },
+      },
+      "Type": "AWS::EFS::MountTarget",
+    },
+    "MyEfsFileSystemEfsMountTarget37A19F504": {
+      "Properties": {
+        "FileSystemId": {
+          "Ref": "MyEfsFileSystem570A3D32",
+        },
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "MyEfsFileSystemEfsSecurityGroupAF3B3237",
+              "GroupId",
+            ],
+          },
+        ],
+        "SubnetId": {
+          "Ref": "MyVpcPrivateSubnet3Subnet772D6AD7",
+        },
+      },
+      "Type": "AWS::EFS::MountTarget",
+    },
+    "MyEfsFileSystemEfsSecurityGroupAF3B3237": {
+      "Properties": {
+        "GroupDescription": "MyStack/MyEfsFileSystem/EfsSecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyEfsFileSystem",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "MyEfsFileSystemEfsSecurityGroupfromMyStackFargateLogCollectorServiceSecurityGroup14936ABE204939E70807": {
+      "Properties": {
+        "Description": "Allow access to the logs EFS file system",
+        "FromPort": 2049,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "MyEfsFileSystemEfsSecurityGroupAF3B3237",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "FargateLogCollectorServiceSecurityGroup6F4ED0C2",
+            "GroupId",
+          ],
+        },
+        "ToPort": 2049,
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "MyEfsFileSystemlogs788E9911": {
+      "Properties": {
+        "AccessPointTags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyEfsFileSystem/logs",
+          },
+        ],
+        "FileSystemId": {
+          "Ref": "MyEfsFileSystem570A3D32",
+        },
+        "RootDirectory": {
+          "Path": "/var/log",
+        },
+      },
+      "Type": "AWS::EFS::AccessPoint",
+    },
+    "MyEfsFileSystemstate9620F747": {
+      "Properties": {
+        "AccessPointTags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyEfsFileSystem/state",
+          },
+        ],
+        "FileSystemId": {
+          "Ref": "MyEfsFileSystem570A3D32",
+        },
+        "RootDirectory": {
+          "Path": "/var/agent-state",
+        },
+      },
+      "Type": "AWS::EFS::AccessPoint",
+    },
+    "MyVpcF9F0CA6F": {
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "MyVpcIGW5C4A4F63": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "MyVpcPrivateSubnet1DefaultRouteA8CDE2FA": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "MyVpcPublicSubnet1NATGatewayAD3400C1",
+        },
+        "RouteTableId": {
+          "Ref": "MyVpcPrivateSubnet1RouteTable8819E6E2",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVpcPrivateSubnet1RouteTable8819E6E2": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVpcPrivateSubnet1RouteTableAssociation56D38C7E": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVpcPrivateSubnet1RouteTable8819E6E2",
+        },
+        "SubnetId": {
+          "Ref": "MyVpcPrivateSubnet1Subnet5057CF7E",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVpcPrivateSubnet1Subnet5057CF7E": {
+      "Properties": {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.0.96.0/19",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVpcPrivateSubnet2DefaultRoute9CE96294": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "MyVpcPublicSubnet2NATGateway91BFBEC9",
+        },
+        "RouteTableId": {
+          "Ref": "MyVpcPrivateSubnet2RouteTableCEDCEECE",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVpcPrivateSubnet2RouteTableAssociation86A610DA": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVpcPrivateSubnet2RouteTableCEDCEECE",
+        },
+        "SubnetId": {
+          "Ref": "MyVpcPrivateSubnet2Subnet0040C983",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVpcPrivateSubnet2RouteTableCEDCEECE": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVpcPrivateSubnet2Subnet0040C983": {
+      "Properties": {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.0.128.0/19",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVpcPrivateSubnet3DefaultRouteEC11C0C5": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "MyVpcPublicSubnet3NATGatewayD4B50EBE",
+        },
+        "RouteTableId": {
+          "Ref": "MyVpcPrivateSubnet3RouteTableB790927C",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVpcPrivateSubnet3RouteTableAssociationD951741C": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVpcPrivateSubnet3RouteTableB790927C",
+        },
+        "SubnetId": {
+          "Ref": "MyVpcPrivateSubnet3Subnet772D6AD7",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVpcPrivateSubnet3RouteTableB790927C": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PrivateSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVpcPrivateSubnet3Subnet772D6AD7": {
+      "Properties": {
+        "AvailabilityZone": "dummy1c",
+        "CidrBlock": "10.0.160.0/19",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PrivateSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVpcPublicSubnet1DefaultRoute95FDF9EB": {
+      "DependsOn": [
+        "MyVpcVPCGW488ACE0D",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "MyVpcIGW5C4A4F63",
+        },
+        "RouteTableId": {
+          "Ref": "MyVpcPublicSubnet1RouteTableC46AB2F4",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVpcPublicSubnet1EIP096967CB": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "MyVpcPublicSubnet1NATGatewayAD3400C1": {
+      "DependsOn": [
+        "MyVpcPublicSubnet1DefaultRoute95FDF9EB",
+        "MyVpcPublicSubnet1RouteTableAssociation2ECEE1CB",
+      ],
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "MyVpcPublicSubnet1EIP096967CB",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "MyVpcPublicSubnet1SubnetF6608456",
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "MyVpcPublicSubnet1RouteTableAssociation2ECEE1CB": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVpcPublicSubnet1RouteTableC46AB2F4",
+        },
+        "SubnetId": {
+          "Ref": "MyVpcPublicSubnet1SubnetF6608456",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVpcPublicSubnet1RouteTableC46AB2F4": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVpcPublicSubnet1SubnetF6608456": {
+      "Properties": {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.0.0.0/19",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVpcPublicSubnet2DefaultRoute052936F6": {
+      "DependsOn": [
+        "MyVpcVPCGW488ACE0D",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "MyVpcIGW5C4A4F63",
+        },
+        "RouteTableId": {
+          "Ref": "MyVpcPublicSubnet2RouteTable1DF17386",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVpcPublicSubnet2EIP8CCBA239": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "MyVpcPublicSubnet2NATGateway91BFBEC9": {
+      "DependsOn": [
+        "MyVpcPublicSubnet2DefaultRoute052936F6",
+        "MyVpcPublicSubnet2RouteTableAssociation227DE78D",
+      ],
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "MyVpcPublicSubnet2EIP8CCBA239",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "MyVpcPublicSubnet2Subnet492B6BFB",
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "MyVpcPublicSubnet2RouteTable1DF17386": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVpcPublicSubnet2RouteTableAssociation227DE78D": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVpcPublicSubnet2RouteTable1DF17386",
+        },
+        "SubnetId": {
+          "Ref": "MyVpcPublicSubnet2Subnet492B6BFB",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVpcPublicSubnet2Subnet492B6BFB": {
+      "Properties": {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.0.32.0/19",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVpcPublicSubnet3DefaultRoute3A83AB36": {
+      "DependsOn": [
+        "MyVpcVPCGW488ACE0D",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "MyVpcIGW5C4A4F63",
+        },
+        "RouteTableId": {
+          "Ref": "MyVpcPublicSubnet3RouteTable15028F08",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "MyVpcPublicSubnet3EIPC5ACADAB": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet3",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "MyVpcPublicSubnet3NATGatewayD4B50EBE": {
+      "DependsOn": [
+        "MyVpcPublicSubnet3DefaultRoute3A83AB36",
+        "MyVpcPublicSubnet3RouteTableAssociation5C27DDA4",
+      ],
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "MyVpcPublicSubnet3EIPC5ACADAB",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "MyVpcPublicSubnet3Subnet57EEE236",
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet3",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "MyVpcPublicSubnet3RouteTable15028F08": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "MyVpcPublicSubnet3RouteTableAssociation5C27DDA4": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "MyVpcPublicSubnet3RouteTable15028F08",
+        },
+        "SubnetId": {
+          "Ref": "MyVpcPublicSubnet3Subnet57EEE236",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "MyVpcPublicSubnet3Subnet57EEE236": {
+      "Properties": {
+        "AvailabilityZone": "dummy1c",
+        "CidrBlock": "10.0.64.0/19",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "MyStack/MyVpc/PublicSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "MyVpcVPCGW488ACE0D": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "MyVpcIGW5C4A4F63",
+        },
+        "VpcId": {
+          "Ref": "MyVpcF9F0CA6F",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+    "NewLogGroupD128C696": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "LogGroupName": "new-log-group",
+        "RetentionInDays": 7,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
