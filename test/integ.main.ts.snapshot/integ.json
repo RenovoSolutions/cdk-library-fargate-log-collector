@@ -1,0 +1,30 @@
+{
+  "version": "41.0.0",
+  "testCases": {
+    "IntegrationTest/DefaultTest": {
+      "stacks": [
+        "FargateLogCollectorTestStack"
+      ],
+      "regions": [
+        "${Token[AWS.Region.6]}"
+      ],
+      "diffAssets": false,
+      "cdkCommandOptions": {
+        "deploy": {
+          "args": {
+            "requireApproval": "never"
+          }
+        },
+        "destroy": {
+          "args": {
+            "force": true
+          }
+        }
+      },
+      "stackUpdateWorkflow": true,
+      "assertionStack": "IntegrationTest/DefaultTest/DeployAssert",
+      "assertionStackName": "IntegrationTestDefaultTestDeployAssertDDDAF29A"
+    }
+  },
+  "minimumCliVersion": "2.1005.0"
+}

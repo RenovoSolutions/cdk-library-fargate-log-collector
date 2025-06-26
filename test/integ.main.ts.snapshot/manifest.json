@@ -1,0 +1,1424 @@
+{
+  "version": "43.0.0",
+  "artifacts": {
+    "FargateLogCollectorTestStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "FargateLogCollectorTestStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "FargateLogCollectorTestStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "FargateLogCollectorTestStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/aeb5606ef9f34f1684393c0adc3b92ac184d94bc43edd29234bf7ee520f4d16e.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "FargateLogCollectorTestStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "FargateLogCollectorTestStack.assets"
+      ],
+      "metadata": {
+        "/FargateLogCollectorTestStack/Vpc": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "ipAddresses": "*",
+              "maxAzs": "*",
+              "natGateways": "*",
+              "subnetConfiguration": [
+                {
+                  "name": "*",
+                  "subnetType": "Public"
+                },
+                {
+                  "name": "*",
+                  "subnetType": "Private"
+                },
+                {
+                  "name": "*",
+                  "subnetType": "Isolated"
+                }
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Vpc8378EB38"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PublicSubnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "availabilityZone": "*",
+              "vpcId": "*",
+              "cidrBlock": "*",
+              "mapPublicIpOnLaunch": true,
+              "ipv6CidrBlock": "*",
+              "assignIpv6AddressOnCreation": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "availabilityZone": "*",
+              "vpcId": "*",
+              "cidrBlock": "*",
+              "mapPublicIpOnLaunch": true,
+              "ipv6CidrBlock": "*",
+              "assignIpv6AddressOnCreation": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {}
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addNatGateway": [
+                "*"
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1Subnet5C2D37C4"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1RouteTable6C95E38E"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1RouteTableAssociation97140677"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1DefaultRoute3DA9E72A"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1EIPD7E02669"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPublicSubnet1NATGateway4D7517AA"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PrivateSubnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "availabilityZone": "*",
+              "vpcId": "*",
+              "cidrBlock": "*",
+              "mapPublicIpOnLaunch": false,
+              "ipv6CidrBlock": "*",
+              "assignIpv6AddressOnCreation": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "availabilityZone": "*",
+              "vpcId": "*",
+              "cidrBlock": "*",
+              "mapPublicIpOnLaunch": false,
+              "ipv6CidrBlock": "*",
+              "assignIpv6AddressOnCreation": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {}
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet1Subnet536B997A"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet1RouteTableB2C5B500"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet1RouteTableAssociation70C59FA6"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateSubnet1DefaultRouteBE02A9ED"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PrivateIsolatedSubnet1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "availabilityZone": "*",
+              "vpcId": "*",
+              "cidrBlock": "*",
+              "mapPublicIpOnLaunch": false,
+              "ipv6CidrBlock": "*",
+              "assignIpv6AddressOnCreation": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "availabilityZone": "*",
+              "vpcId": "*",
+              "cidrBlock": "*",
+              "mapPublicIpOnLaunch": false,
+              "ipv6CidrBlock": "*",
+              "assignIpv6AddressOnCreation": "*"
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PrivateIsolatedSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateIsolatedSubnet1Subnet419CB160"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PrivateIsolatedSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateIsolatedSubnet1RouteTable4D1C407D"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/PrivateIsolatedSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcPrivateIsolatedSubnet1RouteTableAssociationFC5C77E3"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcIGWD7BA715C"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcVPCGWBF912B6E"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/RestrictDefaultSecurityGroupCustomResource": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Vpc/RestrictDefaultSecurityGroupCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcRestrictDefaultSecurityGroupCustomResourceC73DA2BE"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LatestNodeRuntimeMap": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LatestNodeRuntimeMap"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Custom::VpcRestrictDefaultSGCustomResourceProvider": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+            "data": true
+          }
+        ],
+        "/FargateLogCollectorTestStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E"
+          }
+        ],
+        "/FargateLogCollectorTestStack/FileSystem": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "vpc": "*",
+              "vpcSubnets": {
+                "subnetType": "Isolated"
+              },
+              "encrypted": true,
+              "lifecyclePolicy": "AFTER_7_DAYS",
+              "performanceMode": "generalPurpose",
+              "throughputMode": "bursting",
+              "fileSystemPolicy": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addAccessPoint": [
+                "*",
+                {
+                  "path": "*",
+                  "createAcl": {
+                    "ownerGid": "*",
+                    "ownerUid": "*",
+                    "permissions": "*"
+                  },
+                  "posixUser": {
+                    "uid": "*",
+                    "gid": "*"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addAccessPoint": [
+                "*",
+                {
+                  "path": "*",
+                  "createAcl": {
+                    "ownerGid": "*",
+                    "ownerUid": "*",
+                    "permissions": "*"
+                  },
+                  "posixUser": {
+                    "uid": "*",
+                    "gid": "*"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/FileSystem/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FileSystem8A8E25C0"
+          }
+        ],
+        "/FargateLogCollectorTestStack/FileSystem/EfsSecurityGroup": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "vpc": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addIngressRule": [
+                "*",
+                {},
+                "*",
+                true
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addIngressRule": [
+                "*",
+                {},
+                "*",
+                false
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addIngressRule": [
+                "*",
+                {},
+                "*",
+                false
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/FileSystem/EfsSecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FileSystemEfsSecurityGroup212D3ACB"
+          }
+        ],
+        "/FargateLogCollectorTestStack/FileSystem/EfsSecurityGroup/from FargateLogCollectorTestStackTestDataLambdaSecurityGroup862B7664:2049": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FileSystemEfsSecurityGroupfromFargateLogCollectorTestStackTestDataLambdaSecurityGroup862B76642049943D889F"
+          }
+        ],
+        "/FargateLogCollectorTestStack/FileSystem/EfsSecurityGroup/from FargateLogCollectorTestStackLogCollectorSecurityGroup1DD8E73D:2049": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FileSystemEfsSecurityGroupfromFargateLogCollectorTestStackLogCollectorSecurityGroup1DD8E73D2049501BA32F"
+          }
+        ],
+        "/FargateLogCollectorTestStack/FileSystem/EfsMountTarget-PrivateIsolatedSubnet1": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FileSystemEfsMountTargetPrivateIsolatedSubnet1147C5FD0"
+          }
+        ],
+        "/FargateLogCollectorTestStack/FileSystem/LogsAccessPoint": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "fileSystem": "*",
+              "path": "*",
+              "createAcl": {
+                "ownerGid": "*",
+                "ownerUid": "*",
+                "permissions": "*"
+              },
+              "posixUser": {
+                "uid": "*",
+                "gid": "*"
+              }
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/FileSystem/LogsAccessPoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FileSystemLogsAccessPointAD143423"
+          }
+        ],
+        "/FargateLogCollectorTestStack/FileSystem/StateAccessPoint": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "fileSystem": "*",
+              "path": "*",
+              "createAcl": {
+                "ownerGid": "*",
+                "ownerUid": "*",
+                "permissions": "*"
+              },
+              "posixUser": {
+                "uid": "*",
+                "gid": "*"
+              }
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/FileSystem/StateAccessPoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FileSystemStateAccessPointAE912A5C"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Cluster": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "vpc": "*",
+              "clusterName": "*",
+              "enableFargateCapacityProviders": true
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "enableFargateCapacityProviders": []
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/Cluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClusterEB0386A7"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Cluster/Cluster": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Cluster3DA9CCBA"
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestLogGroup1": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "logGroupName": "*",
+              "retention": 7
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestLogGroup1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TestLogGroup14C8D7CA0"
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambdaRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "assumedBy": {
+                "principalAccount": "*",
+                "assumeRoleAction": "*"
+              },
+              "roleName": "*",
+              "managedPolicies": [
+                {
+                  "managedPolicyArn": "*"
+                },
+                {
+                  "managedPolicyArn": "*"
+                }
+              ],
+              "inlinePolicies": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPrincipalPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachInlinePolicy": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachInlinePolicy": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPrincipalPolicy": [
+                {}
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambdaRole/ImportTestDataLambdaRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambdaRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TestDataLambdaRoleC78DEA25"
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambdaRole/DefaultPolicy": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachToRole": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachToRole": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addStatements": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addStatements": [
+                {}
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambdaRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TestDataLambdaRoleDefaultPolicy72A53D62"
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambdaLogGroup": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "logGroupName": "*",
+              "retention": 7
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambdaLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TestDataLambdaLogGroup81E6E728"
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambda": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "functionName": "*",
+              "runtime": "*",
+              "role": "*",
+              "code": "*",
+              "handler": "*",
+              "filesystem": "*",
+              "logGroup": "*",
+              "vpc": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "functionName": "*",
+              "runtime": "*",
+              "role": "*",
+              "code": "*",
+              "handler": "*",
+              "filesystem": "*",
+              "logGroup": "*",
+              "vpc": "*"
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambda/SecurityGroup": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "vpc": "*",
+              "description": "*",
+              "allowAllOutbound": "*",
+              "allowAllIpv6Outbound": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addEgressRule": [
+                "*",
+                {},
+                "*",
+                false
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:warning",
+            "data": "Ignoring Egress rule since 'allowAllOutbound' is set to true; To add customized rules, set allowAllOutbound=false on the SecurityGroup [ack: @aws-cdk/aws-ec2:ipv4IgnoreEgressRule]"
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambda/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TestDataLambdaSecurityGroupD942BE18"
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TestDataLambda7CB8DC71"
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambda/Trigger/Default": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambda/Trigger/Default/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TestDataLambdaTriggerE18906FA"
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambda/CurrentVersion": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "lambda": "*"
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/TestDataLambda/CurrentVersion/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TestDataLambdaCurrentVersion59953098be466586565f2737594c7cf792ea46ac"
+          }
+        ],
+        "/FargateLogCollectorTestStack/AWSCDK.TriggerCustomResourceProviderCustomResourceProvider": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+            "data": true
+          }
+        ],
+        "/FargateLogCollectorTestStack/AWSCDK.TriggerCustomResourceProviderCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AWSCDKTriggerCustomResourceProviderCustomResourceProviderRoleE18FAF0A"
+          }
+        ],
+        "/FargateLogCollectorTestStack/AWSCDK.TriggerCustomResourceProviderCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AWSCDKTriggerCustomResourceProviderCustomResourceProviderHandler97BECD91"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorExecutionRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "assumedBy": {
+                "principalAccount": "*",
+                "assumeRoleAction": "*"
+              },
+              "managedPolicies": [
+                {
+                  "managedPolicyArn": "*"
+                }
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPrincipalPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachInlinePolicy": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachInlinePolicy": [
+                "*"
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorExecutionRole/ImportLogCollectorExecutionRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorExecutionRole96F642C6"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorExecutionRole/DefaultPolicy": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachToRole": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachToRole": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addStatements": [
+                {}
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorExecutionRoleDefaultPolicyDC91D0B6"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorTaskRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "assumedBy": {
+                "principalAccount": "*",
+                "assumeRoleAction": "*"
+              }
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPrincipalPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachInlinePolicy": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachInlinePolicy": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addToPrincipalPolicy": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachInlinePolicy": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachInlinePolicy": [
+                "*"
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorTaskRole/ImportLogCollectorTaskRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorTaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorTaskRole7F5C3342"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorTaskRole/DefaultPolicy": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachToRole": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachToRole": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addStatements": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addStatements": [
+                {}
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorTaskRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorTaskRoleDefaultPolicy6698E53E"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorTaskDefinition": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollectorTaskDefinition/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorTaskDefinition401DD488"
+          }
+        ],
+        "/FargateLogCollectorTestStack/ContainerLogGroup": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "logGroupName": "*",
+              "retention": 731,
+              "removalPolicy": "retain-on-update-or-delete"
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/ContainerLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ContainerLogGroupDE306E09"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorService1D6F89E5"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/SecurityGroup": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "vpc": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addEgressRule": [
+                "*",
+                {},
+                "*",
+                true
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addEgressRule": [
+                "*",
+                {},
+                "*",
+                true
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorSecurityGroup6F4565AD"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/integtestlogcollector2": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "logGroupName": "*",
+              "retention": 7
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/integtestlogcollector2/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorintegtestlogcollector2179B52DF"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/CloudWatchAgentPolicy": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "statements": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addStatements": [
+                {}
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachToRole": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "attachToRole": [
+                "*"
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/CloudWatchAgentPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorCloudWatchAgentPolicy8E775079"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/RestartServiceFunctionRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "assumedBy": {
+                "principalAccount": "*",
+                "assumeRoleAction": "*"
+              },
+              "managedPolicies": [
+                {
+                  "managedPolicyArn": "*"
+                }
+              ],
+              "inlinePolicies": "*"
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/RestartServiceFunctionRole/ImportRestartServiceFunctionRole": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/RestartServiceFunctionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorRestartServiceFunctionRole18091D66"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/RestartServiceFunctionLogGroup": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "logGroupName": "*",
+              "retention": 731,
+              "removalPolicy": "retain-on-update-or-delete"
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/RestartServiceFunctionLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorRestartServiceFunctionLogGroupE94F55E1"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/RestartServiceFunction": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "runtime": "*",
+              "handler": "*",
+              "role": "*",
+              "logGroup": "*",
+              "code": "*"
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/RestartServiceFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorRestartServiceFunctionE799CF37"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/RestartServiceRule": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": {
+              "schedule": "*"
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addEventPattern": [
+                "*"
+              ]
+            }
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": {
+              "addTarget": [
+                {}
+              ]
+            }
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/RestartServiceRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorRestartServiceRuleC24DF410"
+          }
+        ],
+        "/FargateLogCollectorTestStack/LogCollector/RestartServiceRule/AllowEventRuleFargateLogCollectorTestStackLogCollectorRestartServiceFunctionBB22E7FC": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogCollectorRestartServiceRuleAllowEventRuleFargateLogCollectorTestStackLogCollectorRestartServiceFunctionBB22E7FCE35510AB"
+          }
+        ],
+        "/FargateLogCollectorTestStack/Exports/Output{\"Ref\":\"TestLogGroup14C8D7CA0\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefTestLogGroup14C8D7CA0FA862916"
+          }
+        ],
+        "/FargateLogCollectorTestStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/FargateLogCollectorTestStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "FargateLogCollectorTestStack"
+    },
+    "IntegrationTestDefaultTestDeployAssertDDDAF29A.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "IntegrationTestDefaultTestDeployAssertDDDAF29A.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "IntegrationTestDefaultTestDeployAssertDDDAF29A": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "IntegrationTestDefaultTestDeployAssertDDDAF29A.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/f34bbfbe5e89962de66ff2b75091ae39ba05e63b17bf306205fa86ac70e811c7.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "IntegrationTestDefaultTestDeployAssertDDDAF29A.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "FargateLogCollectorTestStack",
+        "IntegrationTestDefaultTestDeployAssertDDDAF29A.assets"
+      ],
+      "metadata": {
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventse5f9a73a1c8c5627958e9604ec14c066/Default": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventse5f9a73a1c8c5627958e9604ec14c066/Default/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventse5f9a73a1c8c5627958e9604ec14c066/WaitFor/IsCompleteProvider/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForIsCompleteProviderInvokeA6D427E4"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventse5f9a73a1c8c5627958e9604ec14c066/WaitFor/TimeoutProvider/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForTimeoutProviderInvokeC227C4BB"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventse5f9a73a1c8c5627958e9604ec14c066/WaitFor/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForRole66DAAEAD"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventse5f9a73a1c8c5627958e9604ec14c066/WaitFor/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForAA060067"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventse5f9a73a1c8c5627958e9604ec14c066/AssertionResults": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssertionResultsAwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction1488541a7b23466481b69b4408076b81Role37ABCE73"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/LatestNodeRuntimeMap": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LatestNodeRuntimeMap"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/SingletonFunction76b3e830a873425f8453eddd85c86925/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction76b3e830a873425f8453eddd85c86925Role918961BB"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/SingletonFunction76b3e830a873425f8453eddd85c86925/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction76b3e830a873425f8453eddd85c86925Handler81461ECE"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41a/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aRoleB84BD8CE"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41a/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aHandlerADF3E6EA"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventsc6cfaead8b47f764b52d802ee6564d08/Default": [
+          {
+            "type": "aws:cdk:analytics:construct",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          },
+          {
+            "type": "aws:cdk:analytics:method",
+            "data": "*"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventsc6cfaead8b47f764b52d802ee6564d08/Default/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventsc6cfaead8b47f764b52d802ee6564d08/WaitFor/IsCompleteProvider/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForIsCompleteProviderInvokeC74725C4"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventsc6cfaead8b47f764b52d802ee6564d08/WaitFor/TimeoutProvider/Invoke": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForTimeoutProviderInvokeA5D5032F"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventsc6cfaead8b47f764b52d802ee6564d08/WaitFor/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForRoleCB67A48E"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventsc6cfaead8b47f764b52d802ee6564d08/WaitFor/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForA9A5F81C"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/AwsApiCallcloudwatch-logsGetLogEventsc6cfaead8b47f764b52d802ee6564d08/AssertionResults": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AssertionResultsAwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/IntegrationTest/DefaultTest/DeployAssert/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "IntegrationTest/DefaultTest/DeployAssert"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  },
+  "minimumCliVersion": "2.1016.1"
+}

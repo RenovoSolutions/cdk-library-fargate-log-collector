@@ -1,0 +1,717 @@
+{
+ "Resources": {
+  "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066": {
+   "Type": "Custom::DeployAssert@SdkCallcloudwatch-logsGetLogEvents",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F",
+      "Arn"
+     ]
+    },
+    "service": "cloudwatch-logs",
+    "api": "GetLogEvents",
+    "expected": "{\"$StringLike\":\"This is test log file 1\"}",
+    "actualPath": "events.0.message",
+    "stateMachineArn": {
+     "Ref": "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForAA060067"
+    },
+    "parameters": {
+     "logGroupName": {
+      "Fn::Join": [
+       "",
+       [
+        "\"",
+        {
+         "Fn::ImportValue": "FargateLogCollectorTestStack:ExportsOutputRefTestLogGroup14C8D7CA0FA862916"
+        },
+        "\""
+       ]
+      ]
+     },
+     "logStreamName": "\"2025-05-27\"",
+     "startFromHead": "true",
+     "limit": "1"
+    },
+    "flattenResponse": "true",
+    "outputPaths": [
+     "events.0.message"
+    ],
+    "salt": "1748353905448"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForIsCompleteProviderInvokeA6D427E4": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "SingletonFunction76b3e830a873425f8453eddd85c86925Handler81461ECE",
+      "Arn"
+     ]
+    },
+    "Principal": {
+     "Fn::GetAtt": [
+      "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForRole66DAAEAD",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForTimeoutProviderInvokeC227C4BB": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aHandlerADF3E6EA",
+      "Arn"
+     ]
+    },
+    "Principal": {
+     "Fn::GetAtt": [
+      "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForRole66DAAEAD",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForRole66DAAEAD": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "states.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "Policies": [
+     {
+      "PolicyName": "InlineInvokeFunctions",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Action": "lambda:InvokeFunction",
+         "Effect": "Allow",
+         "Resource": [
+          {
+           "Fn::GetAtt": [
+            "SingletonFunction76b3e830a873425f8453eddd85c86925Handler81461ECE",
+            "Arn"
+           ]
+          },
+          {
+           "Fn::GetAtt": [
+            "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aHandlerADF3E6EA",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForAA060067": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "DefinitionString": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"StartAt\":\"framework-isComplete-task\",\"States\":{\"framework-isComplete-task\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"States.ALL\"],\"IntervalSeconds\":5,\"MaxAttempts\":60,\"BackoffRate\":1}],\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"Next\":\"framework-onTimeout-task\"}],\"Type\":\"Task\",\"Resource\":\"",
+       {
+        "Fn::GetAtt": [
+         "SingletonFunction76b3e830a873425f8453eddd85c86925Handler81461ECE",
+         "Arn"
+        ]
+       },
+       "\"},\"framework-onTimeout-task\":{\"End\":true,\"Type\":\"Task\",\"Resource\":\"",
+       {
+        "Fn::GetAtt": [
+         "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aHandlerADF3E6EA",
+         "Arn"
+        ]
+       },
+       "\"}}}"
+      ]
+     ]
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForRole66DAAEAD",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066WaitForRole66DAAEAD"
+   ]
+  },
+  "SingletonFunction1488541a7b23466481b69b4408076b81Role37ABCE73": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Action": [
+          "logs:GetLogEvents"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          "*"
+         ]
+        },
+        {
+         "Action": [
+          "states:StartExecution"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          "*"
+         ]
+        },
+        {
+         "Action": [
+          "logs:GetLogEvents"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          "*"
+         ]
+        },
+        {
+         "Action": [
+          "states:StartExecution"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          "*"
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Runtime": {
+     "Fn::FindInMap": [
+      "LatestNodeRuntimeMap",
+      {
+       "Ref": "AWS::Region"
+      },
+      "value"
+     ]
+    },
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "530055f7515b3f0a47900f5df37e729ba40ca977b2d07b952bdefa2b8f883f42.zip"
+    },
+    "Timeout": 120,
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "SingletonFunction1488541a7b23466481b69b4408076b81Role37ABCE73",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "SingletonFunction76b3e830a873425f8453eddd85c86925Role918961BB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Action": [
+          "logs:GetLogEvents"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          "*"
+         ]
+        },
+        {
+         "Action": [
+          "logs:GetLogEvents"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          "*"
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "SingletonFunction76b3e830a873425f8453eddd85c86925Handler81461ECE": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Runtime": {
+     "Fn::FindInMap": [
+      "LatestNodeRuntimeMap",
+      {
+       "Ref": "AWS::Region"
+      },
+      "value"
+     ]
+    },
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "530055f7515b3f0a47900f5df37e729ba40ca977b2d07b952bdefa2b8f883f42.zip"
+    },
+    "Timeout": 120,
+    "Handler": "index.isComplete",
+    "Role": {
+     "Fn::GetAtt": [
+      "SingletonFunction76b3e830a873425f8453eddd85c86925Role918961BB",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aRoleB84BD8CE": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ]
+   }
+  },
+  "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aHandlerADF3E6EA": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Runtime": {
+     "Fn::FindInMap": [
+      "LatestNodeRuntimeMap",
+      {
+       "Ref": "AWS::Region"
+      },
+      "value"
+     ]
+    },
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "530055f7515b3f0a47900f5df37e729ba40ca977b2d07b952bdefa2b8f883f42.zip"
+    },
+    "Timeout": 120,
+    "Handler": "index.onTimeout",
+    "Role": {
+     "Fn::GetAtt": [
+      "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aRoleB84BD8CE",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08": {
+   "Type": "Custom::DeployAssert@SdkCallcloudwatch-logsGetLogEvents",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F",
+      "Arn"
+     ]
+    },
+    "service": "cloudwatch-logs",
+    "api": "GetLogEvents",
+    "expected": "{\"$StringLike\":\"This is test log file 2\"}",
+    "actualPath": "events.0.message",
+    "stateMachineArn": {
+     "Ref": "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForA9A5F81C"
+    },
+    "parameters": {
+     "logGroupName": "\"integ-test-log-collector-2\"",
+     "logStreamName": "\"2025-05-27\"",
+     "startFromHead": "true",
+     "limit": "1"
+    },
+    "flattenResponse": "true",
+    "outputPaths": [
+     "events.0.message"
+    ],
+    "salt": "1748353905450"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForIsCompleteProviderInvokeC74725C4": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "SingletonFunction76b3e830a873425f8453eddd85c86925Handler81461ECE",
+      "Arn"
+     ]
+    },
+    "Principal": {
+     "Fn::GetAtt": [
+      "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForRoleCB67A48E",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForTimeoutProviderInvokeA5D5032F": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aHandlerADF3E6EA",
+      "Arn"
+     ]
+    },
+    "Principal": {
+     "Fn::GetAtt": [
+      "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForRoleCB67A48E",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForRoleCB67A48E": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "states.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "Policies": [
+     {
+      "PolicyName": "InlineInvokeFunctions",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Action": "lambda:InvokeFunction",
+         "Effect": "Allow",
+         "Resource": [
+          {
+           "Fn::GetAtt": [
+            "SingletonFunction76b3e830a873425f8453eddd85c86925Handler81461ECE",
+            "Arn"
+           ]
+          },
+          {
+           "Fn::GetAtt": [
+            "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aHandlerADF3E6EA",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForA9A5F81C": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "DefinitionString": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"StartAt\":\"framework-isComplete-task\",\"States\":{\"framework-isComplete-task\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"States.ALL\"],\"IntervalSeconds\":5,\"MaxAttempts\":60,\"BackoffRate\":1}],\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"Next\":\"framework-onTimeout-task\"}],\"Type\":\"Task\",\"Resource\":\"",
+       {
+        "Fn::GetAtt": [
+         "SingletonFunction76b3e830a873425f8453eddd85c86925Handler81461ECE",
+         "Arn"
+        ]
+       },
+       "\"},\"framework-onTimeout-task\":{\"End\":true,\"Type\":\"Task\",\"Resource\":\"",
+       {
+        "Fn::GetAtt": [
+         "SingletonFunction5c1898e096fb4e3e95d5f6c67f3ce41aHandlerADF3E6EA",
+         "Arn"
+        ]
+       },
+       "\"}}}"
+      ]
+     ]
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForRoleCB67A48E",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08WaitForRoleCB67A48E"
+   ]
+  }
+ },
+ "Outputs": {
+  "AssertionResultsAwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066": {
+   "Value": {
+    "Fn::GetAtt": [
+     "AwsApiCallcloudwatchlogsGetLogEventse5f9a73a1c8c5627958e9604ec14c066",
+     "assertion"
+    ]
+   }
+  },
+  "AssertionResultsAwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08": {
+   "Value": {
+    "Fn::GetAtt": [
+     "AwsApiCallcloudwatchlogsGetLogEventsc6cfaead8b47f764b52d802ee6564d08",
+     "assertion"
+    ]
+   }
+  }
+ },
+ "Mappings": {
+  "LatestNodeRuntimeMap": {
+   "af-south-1": {
+    "value": "nodejs22.x"
+   },
+   "ap-east-1": {
+    "value": "nodejs22.x"
+   },
+   "ap-east-2": {
+    "value": "nodejs22.x"
+   },
+   "ap-northeast-1": {
+    "value": "nodejs22.x"
+   },
+   "ap-northeast-2": {
+    "value": "nodejs22.x"
+   },
+   "ap-northeast-3": {
+    "value": "nodejs22.x"
+   },
+   "ap-south-1": {
+    "value": "nodejs22.x"
+   },
+   "ap-south-2": {
+    "value": "nodejs22.x"
+   },
+   "ap-southeast-1": {
+    "value": "nodejs22.x"
+   },
+   "ap-southeast-2": {
+    "value": "nodejs22.x"
+   },
+   "ap-southeast-3": {
+    "value": "nodejs22.x"
+   },
+   "ap-southeast-4": {
+    "value": "nodejs22.x"
+   },
+   "ap-southeast-5": {
+    "value": "nodejs22.x"
+   },
+   "ap-southeast-7": {
+    "value": "nodejs22.x"
+   },
+   "ca-central-1": {
+    "value": "nodejs22.x"
+   },
+   "ca-west-1": {
+    "value": "nodejs22.x"
+   },
+   "cn-north-1": {
+    "value": "nodejs22.x"
+   },
+   "cn-northwest-1": {
+    "value": "nodejs22.x"
+   },
+   "eu-central-1": {
+    "value": "nodejs22.x"
+   },
+   "eu-central-2": {
+    "value": "nodejs22.x"
+   },
+   "eu-isoe-west-1": {
+    "value": "nodejs18.x"
+   },
+   "eu-north-1": {
+    "value": "nodejs22.x"
+   },
+   "eu-south-1": {
+    "value": "nodejs22.x"
+   },
+   "eu-south-2": {
+    "value": "nodejs22.x"
+   },
+   "eu-west-1": {
+    "value": "nodejs22.x"
+   },
+   "eu-west-2": {
+    "value": "nodejs22.x"
+   },
+   "eu-west-3": {
+    "value": "nodejs22.x"
+   },
+   "il-central-1": {
+    "value": "nodejs22.x"
+   },
+   "me-central-1": {
+    "value": "nodejs22.x"
+   },
+   "me-south-1": {
+    "value": "nodejs22.x"
+   },
+   "mx-central-1": {
+    "value": "nodejs22.x"
+   },
+   "sa-east-1": {
+    "value": "nodejs22.x"
+   },
+   "us-east-1": {
+    "value": "nodejs22.x"
+   },
+   "us-east-2": {
+    "value": "nodejs22.x"
+   },
+   "us-gov-east-1": {
+    "value": "nodejs22.x"
+   },
+   "us-gov-west-1": {
+    "value": "nodejs22.x"
+   },
+   "us-iso-east-1": {
+    "value": "nodejs18.x"
+   },
+   "us-iso-west-1": {
+    "value": "nodejs18.x"
+   },
+   "us-isob-east-1": {
+    "value": "nodejs18.x"
+   },
+   "us-isob-west-1": {
+    "value": "nodejs18.x"
+   },
+   "us-west-1": {
+    "value": "nodejs22.x"
+   },
+   "us-west-2": {
+    "value": "nodejs22.x"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
