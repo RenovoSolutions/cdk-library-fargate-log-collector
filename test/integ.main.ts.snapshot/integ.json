@@ -1,12 +1,12 @@
 {
-  "version": "41.0.0",
+  "version": "44.0.0",
   "testCases": {
     "IntegrationTest/DefaultTest": {
       "stacks": [
         "FargateLogCollectorTestStack"
       ],
       "regions": [
-        "${Token[AWS.Region.6]}"
+        "${Token[AWS.Region.7]}"
       ],
       "diffAssets": false,
       "cdkCommandOptions": {
@@ -26,5 +26,5 @@
       "assertionStackName": "IntegrationTestDefaultTestDeployAssertDDDAF29A"
     }
   },
-  "minimumCliVersion": "2.1005.0"
+  "minimumCliVersion": "2.1019.2"
 }

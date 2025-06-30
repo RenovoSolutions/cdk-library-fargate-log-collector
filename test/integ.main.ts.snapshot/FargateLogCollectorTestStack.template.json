@@ -1008,7 +1008,10 @@
     "VpcPrivateSubnet1RouteTableAssociation70C59FA6"
    ],
    "UpdateReplacePolicy": "Delete",
-   "DeletionPolicy": "Delete"
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:do-not-refactor": true
+   }
   },
   "AWSCDKTriggerCustomResourceProviderCustomResourceProviderRoleE18FAF0A": {
    "Type": "AWS::IAM::Role",
