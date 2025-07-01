@@ -1,5 +1,5 @@
 {
-  "version": "41.0.0",
+  "version": "44.0.0",
   "files": {
     "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200": {
       "displayName": "FargateLogCollectorTestStack/Custom::VpcRestrictDefaultSGCustomResourceProvider Code",
@@ -29,7 +29,7 @@
         }
       }
     },
-    "aeb5606ef9f34f1684393c0adc3b92ac184d94bc43edd29234bf7ee520f4d16e": {
+    "f1d7c862fd58860375f3f59eeec5180de0e823264c29d0e138e1556250445847": {
       "displayName": "FargateLogCollectorTestStack Template",
       "source": {
         "path": "FargateLogCollectorTestStack.template.json",
@@ -38,7 +38,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "aeb5606ef9f34f1684393c0adc3b92ac184d94bc43edd29234bf7ee520f4d16e.json",
+          "objectKey": "f1d7c862fd58860375f3f59eeec5180de0e823264c29d0e138e1556250445847.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

@@ -58,7 +58,7 @@ export interface LogMapping {
   readonly createLogGroup?: logs.LogGroupProps;
   /**
    * The log group to use.
-   * 
+   *
    * This should be an existing log group.
    *
    * If both `createLogGroup` and `logGroup` are provided,

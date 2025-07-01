@@ -4,7 +4,7 @@ import { awscdk, javascript } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Renovo Solutions',
   authorAddress: 'webmaster+cdk@renovo1.com',
-  cdkVersion: '2.199.0',
+  cdkVersion: '2.202.0',
   defaultReleaseBranch: 'master',
   jsiiVersion: '~5.8.0',
   name: '@renovosolutions/cdk-library-fargate-log-collector',
@@ -49,7 +49,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   eslint: true,
   publishToPypi: {
     distName: 'renovosolutions.aws-cdk-fargate-log-collector',
-    module: 'fargate_log_collector',
+    module: 'renovosolutions_fargate_log_collector',
   },
   publishToNuget: {
     dotNetNamespace: 'renovosolutions',
