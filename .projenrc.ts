@@ -4,6 +4,7 @@ import { awscdk, javascript } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Renovo Solutions',
   authorAddress: 'webmaster+cdk@renovo1.com',
+  buildWorkflow: false,
   cdkVersion: '2.202.0',
   defaultReleaseBranch: 'master',
   jsiiVersion: '~5.8.0',
@@ -77,10 +78,12 @@ desired count of 1. So we narrow the ecs.FargateServiceProps type to exclude the
 new javascript.UpgradeDependencies(project, {
   include: ['projen'],
   taskName: 'upgrade-projen',
-  workflow: true,
+  workflow: false,
   workflowOptions: {
     schedule: javascript.UpgradeDependenciesSchedule.WEEKLY,
   },
 });
+
+project.gitignore.addPatterns('.github/workflows/release.yml');
 
 project.synth();
